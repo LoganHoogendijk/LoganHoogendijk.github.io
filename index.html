@@ -37,7 +37,7 @@ h2::before{content:"// ";color:var(--mut)}
 .cur{display:inline-block;width:8px;height:15px;background:var(--ac2);vertical-align:-2px;animation:b 1s steps(2) infinite}
 @keyframes b{50%{opacity:0}}
 .np{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.art{width:96px;height:96px;border-radius:12px;flex:none;position:relative;overflow:hidden;background:var(--ac)}
+.art{width:96px;height:96px;border-radius:50%;flex:none;position:relative;overflow:hidden;background:var(--ac)}
 .art::after{content:"";position:absolute;inset:30%;border-radius:50%;background:var(--bg);box-shadow:0 0 0 6px color-mix(in srgb,var(--bg) 40%,transparent)}
 .np.play .art{animation:spin 8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 .meta{flex:1;min-width:200px}.meta .tt{font-size:1.3rem;font-weight:700}.meta .ar{color:var(--mut)}
@@ -126,27 +126,29 @@ footer{margin-top:80px;color:var(--mut);font-size:13px}
       <div class="bar"><div id="pg"></div></div>
       <div class="tm mono"><span id="cu">0:00</span><span id="du">0:00</span></div>
     </div>
-    <button class="t" id="pp" style="margin:0">⏯</button>
   </div>
-  <p class="mono" style="font-size:11px;color:var(--mut);margin:14px 0 0">demo data — wire to the Spotify Web API through a tiny backend endpoint for the real thing.</p>
+  <p class="mono" id="cap" style="font-size:11px;color:var(--mut);margin:14px 0 0">connecting to Spotify…</p>
 </div>
 <div class="grid" style="margin-top:16px">
   <div class="card"><b>Recently played</b><ol class="top" style="margin-top:12px" id="rc"></ol></div>
-  <div class="card"><b>Top artists this month</b><ol class="top" style="margin-top:12px"><li>Neon Harbor</li><li>The Static Orchard</li><li>Midnight Compiler</li><li>Lo-Fi Kernel</li><li>Cobalt Sundays</li></ol></div>
+  <div class="card"><b>Top artists this month</b><ol class="top" style="margin-top:12px" id="ta"></ol></div>
 </div>
 
 <footer class="mono"><a href="mailto:logan.hoogendijk@gmail.com">logan.hoogendijk@gmail.com</a> · <a href="https://github.com/LoganHoogendijk">github</a> · <a href="https://linkedin.com/in/logan-hoogendijk">linkedin</a> · Markham, ON</footer>
 </main>
 <script>
-const T=[["Midnight on the Interface","Neon Harbor",214],["Garbage Collected Heart","Midnight Compiler",187],["Cobalt Hours","Cobalt Sundays",242],["Idle Threads","Lo-Fi Kernel",165],["Orchard Static","The Static Orchard",203]];
-let i=0,s=0,on=true;
 const $=id=>document.getElementById(id),f=n=>Math.floor(n/60)+":"+String(n%60).padStart(2,"0");
-function load(){const[t,a,d]=T[i];$("tt").textContent=t;$("ar").textContent=a;$("du").textContent=f(d);s=Math.floor(d*.3);
-$("rc").innerHTML=[1,2,3,4].map(k=>{const x=T[(i+k)%T.length];return`<li>${x[0]} <span>— ${x[1]}</span></li>`}).join("")}
-function tick(){if(!on)return;const d=T[i][2];s++;if(s>=d){i=(i+1)%T.length;load()}
-$("cu").textContent=f(s);$("pg").style.width=(s/T[i][2]*100)+"%"}
-$("pp").onclick=()=>{on=!on;$("np").classList.toggle("play",on);$("st").textContent=on?"LISTENING NOW":"PAUSED"};
-load();setInterval(tick,1000);
+let n=null,p=0;
+function list(el,items){el.replaceChildren(...items.map(([a,b])=>{const li=document.createElement("li");li.append(a);if(b){const s=document.createElement("span");s.textContent="— "+b;li.append(" ",s)}return li}))}
+function draw(){const on=!!(n&&n.live&&n.isPlaying);$("np").classList.toggle("play",on);
+$("st").textContent=!n?"NOTHING YET":n.live?(on?"LISTENING NOW":"PAUSED"):"LAST PLAYED";
+const d=(n&&n.duration)||0;$("cu").textContent=d?f(p):"";$("du").textContent=d?f(d):"";$("pg").style.width=d?Math.min(100,p/d*100)+"%":"0"}
+function render(x){n=x.now;p=n?n.progress:0;$("tt").textContent=n?n.title:"Nothing playing";$("ar").textContent=n?n.artist:"";
+list($("rc"),x.recent.map(r=>[r.title,r.artist]));list($("ta"),x.topArtists.map(a=>[a]));
+$("cap").textContent="live from the Spotify API · refreshes every 15s";draw()}
+async function poll(){try{const r=await fetch("/api/spotify");if(!r.ok)throw 0;render(await r.json())}catch(e){if(!n){$("tt").textContent="Spotify is taking a break";$("st").textContent="OFFLINE";$("np").classList.remove("play");$("cap").textContent="couldn't reach the Spotify API"}}}
+setInterval(()=>{if(n&&n.live&&n.isPlaying&&n.duration){p=Math.min(p+1,n.duration);draw()}},1000);
+poll();setInterval(poll,15000);
 </script>
 </body>
 </html>
