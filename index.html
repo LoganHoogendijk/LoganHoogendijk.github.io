@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Logan Hoogendijk — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#1b2023;--card:#31393c;--line:#4a565b;--tx:#f4f7fa;--mut:#a3b2ba;--ac:#fdca40;--ac2:#f79824;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.55}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+main{max-width:980px;margin:0 auto;padding:0 20px 80px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px}
+nav a{color:var(--mut);text-decoration:none;margin-left:18px}nav a:hover{color:var(--ac2)}
+button.t{background:none;border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:18px}
+h1{font-size:clamp(2.3rem,7vw,4.2rem);line-height:1.05;margin:48px 0 14px;letter-spacing:-.03em}
+h1 span{color:var(--ac2)}
+.lead{color:var(--mut);max-width:560px;font-size:1.1rem}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:3px 12px;font-size:12px;color:var(--ac2);margin:4px 6px 0 0;background:var(--card)}
+h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac2);margin:72px 0 20px}
+h2::before{content:"// ";color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.proj{transition:.2s}.proj:hover{transform:translateY(-4px);border-color:var(--ac)}
+.proj h3{margin:0 0 6px}.proj p{color:var(--mut);margin:0 0 12px;font-size:15px}
+.term{font-size:13px;margin-top:28px;max-width:520px;overflow-x:auto}
+.term b{color:var(--ac2);font-weight:400}.term i{color:var(--mut);font-style:normal}
+.cur{display:inline-block;width:8px;height:15px;background:var(--ac2);vertical-align:-2px;animation:b 1s steps(2) infinite}
+@keyframes b{50%{opacity:0}}
+.np{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.art{width:96px;height:96px;border-radius:12px;flex:none;position:relative;overflow:hidden;background:var(--ac)}
+.art::after{content:"";position:absolute;inset:30%;border-radius:50%;background:var(--bg);box-shadow:0 0 0 6px color-mix(in srgb,var(--bg) 40%,transparent)}
+.np.play .art{animation:spin 8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.meta{flex:1;min-width:200px}.meta .tt{font-size:1.3rem;font-weight:700}.meta .ar{color:var(--mut)}
+.bar{height:5px;background:var(--line);border-radius:9px;margin-top:14px;overflow:hidden}.bar div{height:100%;width:0;background:var(--ac2)}
+.tm{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-top:6px}
+.eq{display:flex;gap:3px;align-items:flex-end;height:22px}.eq i{width:4px;background:var(--ac2);border-radius:2px;height:30%;animation:e 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}.eq i:nth-child(4){animation-delay:.6s}
+.np:not(.play) .eq i{animation-play-state:paused}@keyframes e{50%{height:100%}}
+.tl{border-left:2px solid var(--line);padding-left:20px;display:grid;gap:22px}
+.tl div{position:relative}.tl div::before{content:"";position:absolute;left:-27px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px var(--bg)}
+.tl small{color:var(--ac2)}.tl p{margin:2px 0 0;color:var(--mut)}
+ol.top{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:n}
+ol.top li{counter-increment:n;display:flex;gap:12px;font-size:15px}
+ol.top li::before{content:counter(n,decimal-leading-zero);color:var(--ac2);font-family:'JetBrains Mono',monospace}
+ol.top span{color:var(--mut)}
+footer a{color:var(--ac2);text-decoration:none}footer a:hover{text-decoration:underline}
+footer{margin-top:80px;color:var(--mut);font-size:13px}
+</style>
+</head>
+<body>
+<main>
+<nav><b class="mono">~/logan</b><div><a href="#exp">experience</a><a href="#work">built</a><a href="#music">music</a></div></nav>
+
+<h1>I build the parts of the web <span>you never see.</span></h1>
+<p class="lead">Full-stack developer at Clearway who'd rather be killing N+1 queries than tweaking a gradient. Django, Postgres, CI pipelines and monitoring, with enough React to make it all look good.</p>
+<div><span class="pill">Python</span><span class="pill">Django</span><span class="pill">TypeScript</span><span class="pill">React</span><span class="pill">PostgreSQL</span><span class="pill">AWS</span><span class="pill">Docker</span><span class="pill">Redis</span></div>
+<div class="card term mono"><i>$</i> <b>whoami</b><br>logan — full-stack, backend-leaning, music-obsessed<br><i>$</i> <b>cat exp.txt</b><br>2+ yrs shipping<br><i>$</i> <span class="cur"></span></div>
+
+<h2 id="exp">experience</h2>
+<div class="tl">
+<div><small class="mono">Jul 2026 — now</small><b> Intermediate Full-Stack Developer · Clearway</b><p>Rebuilt the timesheet system, cut ERP dashboard loads from ~5s to ~1s, and grew the test suite from zero to 7,600+ tests.</p></div>
+<div><small class="mono">Aug 2024 — Jul 2026</small><b> Junior Full-Stack Developer · Clearway</b><p>Replaced Excel timesheets with an automated payroll workflow and built the company-wide job list with an interactive site map.</p></div>
+<div><small class="mono">May — Aug 2023</small><b> Software Developer Intern · Scotiabank</b><p>Shipped 4 client-requested features for a Java analytics app, extending SQL queries for new reporting workflows.</p></div>
+<div><small class="mono">Jun — Aug 2022</small><b> Production Engineering Fellow · MLH × Meta</b><p>1 of 150 fellows out of 10,000+ applicants; automated deployments and cut manual steps by 50%.</p></div>
+</div>
+
+<h2 id="work">things i've built</h2>
+<div class="grid">
+<div class="card proj"><h3>LeafHack</h3><p>1st place of 57 teams at QHacks 2024. A ResNet9 model spots 38 plant diseases across 14 species at ~90% accuracy.</p><span class="pill">Next.js</span><span class="pill">Django</span><span class="pill">PyTorch</span></div>
+<div class="card proj"><h3>WithImpact</h3><p>Web app that sorts 150+ open-source projects by UN Sustainable Development Goal using an ML classifier, with GitHub OAuth login.</p><span class="pill">Next.js</span><span class="pill">Django</span><span class="pill">GCP</span></div>
+</div>
+
+<h2 id="music">now playing</h2>
+<div class="card">
+  <div class="np play" id="np">
+    <div class="art"></div>
+    <div class="meta">
+      <div class="mono" style="font-size:12px;color:var(--ac2);display:flex;gap:10px;align-items:center"><div class="eq"><i></i><i></i><i></i><i></i></div><span id="st">LISTENING NOW</span></div>
+      <div class="tt" id="tt"></div><div class="ar" id="ar"></div>
+      <div class="bar"><div id="pg"></div></div>
+      <div class="tm mono"><span id="cu">0:00</span><span id="du">0:00</span></div>
+    </div>
+    <button class="t" id="pp" style="margin:0">⏯</button>
+  </div>
+  <p class="mono" style="font-size:11px;color:var(--mut);margin:14px 0 0">demo data — wire to the Spotify Web API through a tiny backend endpoint for the real thing.</p>
+</div>
+<div class="grid" style="margin-top:16px">
+  <div class="card"><b>Recently played</b><ol class="top" style="margin-top:12px" id="rc"></ol></div>
+  <div class="card"><b>Top artists this month</b><ol class="top" style="margin-top:12px"><li>Neon Harbor</li><li>The Static Orchard</li><li>Midnight Compiler</li><li>Lo-Fi Kernel</li><li>Cobalt Sundays</li></ol></div>
+</div>
+
+<footer class="mono"><a href="mailto:logan.hoogendijk@gmail.com">logan.hoogendijk@gmail.com</a> · <a href="https://github.com/LoganHoogendijk">github</a> · <a href="https://linkedin.com/in/logan-hoogendijk">linkedin</a> · Markham, ON</footer>
+</main>
+<script>
+const T=[["Midnight on the Interface","Neon Harbor",214],["Garbage Collected Heart","Midnight Compiler",187],["Cobalt Hours","Cobalt Sundays",242],["Idle Threads","Lo-Fi Kernel",165],["Orchard Static","The Static Orchard",203]];
+let i=0,s=0,on=true;
+const $=id=>document.getElementById(id),f=n=>Math.floor(n/60)+":"+String(n%60).padStart(2,"0");
+function load(){const[t,a,d]=T[i];$("tt").textContent=t;$("ar").textContent=a;$("du").textContent=f(d);s=Math.floor(d*.3);
+$("rc").innerHTML=[1,2,3,4].map(k=>{const x=T[(i+k)%T.length];return`<li>${x[0]} <span>— ${x[1]}</span></li>`}).join("")}
+function tick(){if(!on)return;const d=T[i][2];s++;if(s>=d){i=(i+1)%T.length;load()}
+$("cu").textContent=f(s);$("pg").style.width=(s/T[i][2]*100)+"%"}
+$("pp").onclick=()=>{on=!on;$("np").classList.toggle("play",on);$("st").textContent=on?"LISTENING NOW":"PAUSED"};
+load();setInterval(tick,1000);
+</script>
+</body>
+</html>
