@@ -12,7 +12,7 @@ async function getAccessToken() {
     },
     body: new URLSearchParams({ grant_type: "refresh_token", refresh_token: refresh }),
   });
-  if (!r.ok) throw new Error(`token ${r.status} ${await r.text()}`);
+  if (!r.ok) throw new Error(`token ${r.status}`);
   return (await r.json()).access_token;
 }
 
@@ -68,6 +68,6 @@ module.exports = async (req, res) => {
       // topArtists,
     });
   } catch (e) {
-    res.status(500).json({ error: "spotify_unavailable", detail: e.message });
+    res.status(500).json({ error: "spotify_unavailable" });
   }
 };
