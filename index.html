@@ -13,7 +13,7 @@ html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.55}
 .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-main{max-width:980px;margin:0 auto;padding:0 20px 80px}
+main{max-width:1100px;margin:0 auto;padding:0 20px 80px}
 nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px}
 nav a{color:var(--mut);text-decoration:none;margin-left:18px}nav a:hover{color:var(--ac2)}
 button.t{background:none;border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:18px}
@@ -25,8 +25,13 @@ h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac2);
 h2::before{content:"// ";color:var(--mut)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.proj{transition:.2s}.proj:hover{transform:translateY(-4px);border-color:var(--ac)}
-.proj h3{margin:0 0 6px}.proj p{color:var(--mut);margin:0 0 12px;font-size:15px}
+.proj{transition:.2s;display:flex;flex-direction:column}.proj:hover{transform:translateY(-4px);border-color:var(--ac)}
+.proj .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}.proj h3{margin:0}.proj p{color:var(--mut);margin:0 0 12px;font-size:15px}
+.proj .tags{flex:1}
+.win{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);border-radius:99px;padding:2px 10px;white-space:nowrap}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.links a{font-size:12px;color:var(--tx);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 12px;transition:.15s}
+.links a:hover{color:var(--ac);border-color:var(--ac)}
 .term{font-size:13px;margin-top:28px;max-width:520px;overflow-x:auto}
 .term b{color:var(--ac2);font-weight:400}.term i{color:var(--mut);font-style:normal}
 .cur{display:inline-block;width:8px;height:15px;background:var(--ac2);vertical-align:-2px;animation:b 1s steps(2) infinite}
@@ -41,9 +46,21 @@ h2::before{content:"// ";color:var(--mut)}
 .eq{display:flex;gap:3px;align-items:flex-end;height:22px}.eq i{width:4px;background:var(--ac2);border-radius:2px;height:30%;animation:e 1s ease-in-out infinite}
 .eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}.eq i:nth-child(4){animation-delay:.6s}
 .np:not(.play) .eq i{animation-play-state:paused}@keyframes e{50%{height:100%}}
-.tl{border-left:2px solid var(--line);padding-left:20px;display:grid;gap:22px}
-.tl div{position:relative}.tl div::before{content:"";position:absolute;left:-27px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px var(--bg)}
-.tl small{color:var(--ac2)}.tl p{margin:2px 0 0;color:var(--mut)}
+
+/* timeline: dates | line + dot | content. Line center sits at x=150px, dots are centered on it */
+.tl{position:relative;display:grid;gap:28px}
+.tl::before{content:"";position:absolute;top:8px;bottom:8px;left:179px;width:2px;background:var(--line)}
+.tl .it{position:relative;display:grid;grid-template-columns:160px 1fr;column-gap:40px}
+.tl .it::before{content:"";position:absolute;left:175px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px var(--bg)}
+.tl .when{text-align:right;white-space:nowrap;color:var(--ac2);font-size:13px;padding-top:2px;line-height:1.4}
+.tl b{display:block}
+.tl p{margin:2px 0 0;color:var(--mut)}
+@media(max-width:700px){
+  .tl::before{left:4px}
+  .tl .it{grid-template-columns:1fr;padding-left:26px}
+  .tl .it::before{left:0}
+  .tl .when{text-align:left;padding:0 0 2px}
+}
 ol.top{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:n}
 ol.top li{counter-increment:n;display:flex;gap:12px;font-size:15px}
 ol.top li::before{content:counter(n,decimal-leading-zero);color:var(--ac2);font-family:'JetBrains Mono',monospace}
@@ -59,20 +76,44 @@ footer{margin-top:80px;color:var(--mut);font-size:13px}
 <h1>I build the parts of the web <span>you never see.</span></h1>
 <p class="lead">Full-stack developer at Clearway who'd rather be killing N+1 queries than tweaking a gradient. Django, Postgres, CI pipelines and monitoring, with enough React to make it all look good.</p>
 <div><span class="pill">Python</span><span class="pill">Django</span><span class="pill">TypeScript</span><span class="pill">React</span><span class="pill">PostgreSQL</span><span class="pill">AWS</span><span class="pill">Docker</span><span class="pill">Redis</span></div>
-<div class="card term mono"><i>$</i> <b>whoami</b><br>logan — full-stack, backend-leaning, music-obsessed<br><i>$</i> <b>cat exp.txt</b><br>2+ yrs shipping<br><i>$</i> <span class="cur"></span></div>
+<div class="card term mono"><i>$</i> <b>whoami</b><br>logan — full-stack, backend-leaning, music-obsessed<br><i>$</i> <b>cat experience.txt</b><br>2+ yrs shipping<br><i>$</i> <span class="cur"></span></div>
 
 <h2 id="exp">experience</h2>
 <div class="tl">
-<div><small class="mono">Jul 2026 — now</small><b> Intermediate Full-Stack Developer · Clearway</b><p>Rebuilt the timesheet system, cut ERP dashboard loads from ~5s to ~1s, and grew the test suite from zero to 7,600+ tests.</p></div>
-<div><small class="mono">Aug 2024 — Jul 2026</small><b> Junior Full-Stack Developer · Clearway</b><p>Replaced Excel timesheets with an automated payroll workflow and built the company-wide job list with an interactive site map.</p></div>
-<div><small class="mono">May — Aug 2023</small><b> Software Developer Intern · Scotiabank</b><p>Shipped 4 client-requested features for a Java analytics app, extending SQL queries for new reporting workflows.</p></div>
-<div><small class="mono">Jun — Aug 2022</small><b> Production Engineering Fellow · MLH × Meta</b><p>1 of 150 fellows out of 10,000+ applicants; automated deployments and cut manual steps by 50%.</p></div>
+<div class="it"><div class="when mono">Jul 2026 — now</div><div><b>Intermediate Full-Stack Developer · Clearway</b><p>Rebuilt the timesheet system, cut ERP dashboard loads from ~5s to ~1s, and grew the test suite from zero to 7,600+ tests.</p></div></div>
+<div class="it"><div class="when mono">Aug 2024 — Jul 2026</div><div><b>Junior Full-Stack Developer · Clearway</b><p>Replaced Excel timesheets with an automated payroll workflow and built the company-wide job list with an interactive site map.</p></div></div>
+<div class="it"><div class="when mono">May — Aug 2023</div><div><b>Software Developer Intern · Scotiabank</b><p>Shipped 4 client-requested features for a Java analytics app, extending SQL queries for new reporting workflows.</p></div></div>
+<div class="it"><div class="when mono">Jun — Aug 2022</div><div><b>Production Engineering Fellow · MLH × Meta</b><p>1 of 150 fellows out of 10,000+ applicants; automated deployments and cut manual steps by 50%.</p></div></div>
 </div>
 
 <h2 id="work">things i've built</h2>
 <div class="grid">
-<div class="card proj"><h3>LeafHack</h3><p>1st place of 57 teams at QHacks 2024. A ResNet9 model spots 38 plant diseases across 14 species at ~90% accuracy.</p><span class="pill">Next.js</span><span class="pill">Django</span><span class="pill">PyTorch</span></div>
-<div class="card proj"><h3>WithImpact</h3><p>Web app that sorts 150+ open-source projects by UN Sustainable Development Goal using an ML classifier, with GitHub OAuth login.</p><span class="pill">Next.js</span><span class="pill">Django</span><span class="pill">GCP</span></div>
+<div class="card proj">
+  <div class="head"><h3>WithImpact</h3></div>
+  <p>Web app that sorts 150+ open-source projects by UN Sustainable Development Goal using an ML classifier, with GitHub OAuth login.</p>
+  <div class="tags"><span class="pill">Next.js</span><span class="pill">NextAuth</span><span class="pill">Django</span><span class="pill">PostgreSQL</span><span class="pill">GCP</span><span class="pill">Python</span></div>
+  <div class="links mono">
+    <a href="https://github.com/LoganHoogendijk/WithImpact" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div>
+<div class="card proj">
+  <div class="head"><h3>LeafHack</h3><span class="win mono">1st Place · QHacks 2024</span></div>
+  <p>Beat 57 teams. Gardening web app where you upload a plant photo and a ResNet9 model spots 38 diseases across 14 species at ~90% accuracy.</p>
+  <div class="tags"><span class="pill">Next.js</span><span class="pill">TypeScript</span><span class="pill">Tailwind CSS</span><span class="pill">Django</span><span class="pill">SQLite</span><span class="pill">PyTorch</span><span class="pill">Python</span><span class="pill">AWS</span></div>
+  <div class="links mono">
+    <a href="https://github.com/LoganHoogendijk/QHACKS_2024" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="https://devpost.com/software/leafhack-xvnpus" target="_blank" rel="noopener">Devpost ↗</a>
+  </div>
+</div>
+<div class="card proj">
+  <div class="head"><h3>CookHack</h3><!-- <span class="win mono">1st Place · Hammer of the Gods API Prize</span> --></div>
+  <p>Recipe site that suggests dishes from the ingredients you type in. Snap a photo of what's in your fridge and a Flask API finds recipes that use it.</p>
+  <div class="tags"><span class="pill">React</span><span class="pill">Redux</span><span class="pill">Flask</span><span class="pill">MongoDB</span><span class="pill">Firebase</span><span class="pill">Python</span><span class="pill">JavaScript</span><span class="pill">HTML</span><span class="pill">CSS</span></div>
+  <div class="links mono">
+    <a href="https://github.com/LoganHoogendijk/QHACKS_2022" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="https://devpost.com/software/cookhack" target="_blank" rel="noopener">Devpost ↗</a>
+  </div>
+</div>
 </div>
 
 <h2 id="music">now playing</h2>
