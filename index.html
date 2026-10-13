@@ -16,6 +16,8 @@ body{margin:0;background:var(--bg);color:var(--tx);font-family:'Space Grotesk',s
 main{max-width:1100px;margin:0 auto;padding:0 20px 80px}
 nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px}
 nav a{color:var(--mut);text-decoration:none;margin-left:18px}nav a:hover{color:var(--ac2)}
+nav a.cta{color:var(--ac);border:1px solid var(--ac);border-radius:8px;padding:4px 12px}
+nav a.cta:hover{background:var(--ac);color:var(--bg)}
 button.t{background:none;border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:18px}
 h1{font-size:clamp(2.3rem,7vw,4.2rem);line-height:1.05;margin:48px 0 14px;letter-spacing:-.03em}
 h1 span{color:var(--ac2)}
@@ -34,6 +36,7 @@ h2::before{content:"// ";color:var(--mut)}
 .links a:hover{color:var(--ac);border-color:var(--ac)}
 .term{font-size:13px;margin-top:28px;max-width:520px;overflow-x:auto}
 .term b{color:var(--ac2);font-weight:400}.term i{color:var(--mut);font-style:normal}
+.term a{color:var(--ac);text-decoration:none}.term a:hover{text-decoration:underline}
 .cur{display:inline-block;width:8px;height:15px;background:var(--ac2);vertical-align:-2px;animation:b 1s steps(2) infinite}
 @keyframes b{50%{opacity:0}}
 .np{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
@@ -54,6 +57,7 @@ h2::before{content:"// ";color:var(--mut)}
 .tl .it::before{content:"";position:absolute;left:175px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px var(--bg)}
 .tl .when{text-align:right;white-space:nowrap;color:var(--ac2);font-size:13px;padding-top:2px;line-height:1.4}
 .tl b{display:block}
+.tl .co{color:var(--ac);font-weight:700}
 .tl p{margin:2px 0 0;color:var(--mut)}
 @media(max-width:700px){
   .tl::before{left:4px}
@@ -71,19 +75,19 @@ footer{margin-top:80px;color:var(--mut);font-size:13px}
 </head>
 <body>
 <main>
-<nav><b class="mono">~/logan</b><div><a href="#exp">experience</a><a href="#work">built</a><a href="#music">music</a></div></nav>
+<nav><b class="mono">~/logan-hoogendijk</b><div><a href="#exp">experience</a><a href="#work">built</a><a href="#music">music</a><a class="cta" href="mailto:logan.hoogendijk@gmail.com">contact</a></div></nav>
 
-<h1>I build the parts of the web <span>you never see.</span></h1>
-<p class="lead">Full-stack developer at Clearway who'd rather be killing N+1 queries than tweaking a gradient. Django, Postgres, CI pipelines and monitoring, with enough React to make it all look good.</p>
-<div><span class="pill">Python</span><span class="pill">Django</span><span class="pill">TypeScript</span><span class="pill">React</span><span class="pill">PostgreSQL</span><span class="pill">AWS</span><span class="pill">Docker</span><span class="pill">Redis</span></div>
-<div class="card term mono"><i>$</i> <b>whoami</b><br>logan — full-stack, backend-leaning, music-obsessed<br><i>$</i> <b>cat experience.txt</b><br>2+ yrs shipping<br><i>$</i> <span class="cur"></span></div>
+<h1>I build software <br><span>that holds up.</span></h1>
+<p class="lead">Full-stack developer at Clearway, building our internal ERP with modern tech and working directly with internal clients to turn their day-to-day workflows into software they can rely on. Django and Postgres on the back, React and TypeScript on the front, and the tests, CI and monitoring that keep it healthy in production.</p>
+<div><span class="pill">Python</span><span class="pill">Django</span><span class="pill">TypeScript</span><span class="pill">React</span><span class="pill">PostgreSQL</span><span class="pill">AWS</span><span class="pill">Docker</span><span class="pill">Redis</span><span class="pill">Git</span><span class="pill">CI/CD</span></div>
+<div class="card term mono"><i>$</i> <b>whoami</b><br>Logan Hoogendijk — full-stack developer, music-obsessed<br><i>$</i> <b>uptime</b><br>up 2+ yrs at Clearway<br><i>$</i> <b>git log --oneline -3</b><br><i>a3f9c21</i> perf: ERP dashboard loads ~5s → ~1s<br><i>7d2e8b4</i> test: 0 → 7,600+ tests<br><i>c81b0f5</i> feat: automated payroll (goodbye, Excel)<br><i>$</i> <b>cat links.txt</b><br><a href="https://github.com/LoganHoogendijk" target="_blank" rel="noopener">github.com/LoganHoogendijk</a><br><a href="https://linkedin.com/in/logan-hoogendijk" target="_blank" rel="noopener">linkedin.com/in/logan-hoogendijk</a><br><i>$</i> <span class="cur"></span></div>
 
 <h2 id="exp">experience</h2>
 <div class="tl">
-<div class="it"><div class="when mono">Jul 2026 — now</div><div><b>Intermediate Full-Stack Developer · Clearway</b><p>Rebuilt the timesheet system, cut ERP dashboard loads from ~5s to ~1s, and grew the test suite from zero to 7,600+ tests.</p></div></div>
-<div class="it"><div class="when mono">Aug 2024 — Jul 2026</div><div><b>Junior Full-Stack Developer · Clearway</b><p>Replaced Excel timesheets with an automated payroll workflow and built the company-wide job list with an interactive site map.</p></div></div>
-<div class="it"><div class="when mono">May — Aug 2023</div><div><b>Software Developer Intern · Scotiabank</b><p>Shipped 4 client-requested features for a Java analytics app, extending SQL queries for new reporting workflows.</p></div></div>
-<div class="it"><div class="when mono">Jun — Aug 2022</div><div><b>Production Engineering Fellow · MLH × Meta</b><p>1 of 150 fellows out of 10,000+ applicants; automated deployments and cut manual steps by 50%.</p></div></div>
+<div class="it"><div class="when mono">Jul 2026 — now</div><div><b>Intermediate Full-Stack Developer <span class="co">· Clearway</span></b><p>Rebuilt the timesheet system, cut ERP dashboard loads from ~5s to ~1s, and grew the test suite from zero to 7,600+ tests.</p></div></div>
+<div class="it"><div class="when mono">Aug 2024 — Jul 2026</div><div><b>Junior Full-Stack Developer <span class="co">· Clearway</span></b><p>Replaced Excel timesheets with an automated payroll workflow and built the company-wide job list with an interactive site map.</p></div></div>
+<div class="it"><div class="when mono">May — Aug 2023</div><div><b>Software Developer Intern <span class="co">· Scotiabank</span></b><p>Shipped 4 client-requested features for a Java analytics app, extending SQL queries for new reporting workflows.</p></div></div>
+<div class="it"><div class="when mono">Jun — Aug 2022</div><div><b>Production Engineering Fellow <span class="co">· MLH × Meta</span></b><p>1 of 150 fellows out of 10,000+ applicants; automated deployments and cut manual steps by 50%.</p></div></div>
 </div>
 
 <h2 id="work">things i've built</h2>
@@ -99,7 +103,7 @@ footer{margin-top:80px;color:var(--mut);font-size:13px}
 <div class="card proj">
   <div class="head"><h3>LeafHack</h3><span class="win mono">1st Place · QHacks 2024</span></div>
   <p>Beat 57 teams. Gardening web app where you upload a plant photo and a ResNet9 model spots 38 diseases across 14 species at ~90% accuracy.</p>
-  <div class="tags"><span class="pill">Next.js</span><span class="pill">TypeScript</span><span class="pill">Tailwind CSS</span><span class="pill">Django</span><span class="pill">SQLite</span><span class="pill">PyTorch</span><span class="pill">Python</span><span class="pill">AWS</span></div>
+  <div class="tags"><span class="pill">Next.js</span><span class="pill">TypeScript</span><span class="pill">Tailwind CSS</span><span class="pill">Django</span><span class="pill">SQLite</span><span class="pill">PyTorch</span><span class="pill">OpenAI API</span><span class="pill">Python</span><span class="pill">AWS</span></div>
   <div class="links mono">
     <a href="https://github.com/LoganHoogendijk/QHACKS_2024" target="_blank" rel="noopener">GitHub ↗</a>
     <a href="https://devpost.com/software/leafhack-xvnpus" target="_blank" rel="noopener">Devpost ↗</a>
@@ -151,8 +155,13 @@ function render(x){n=x.now;p=n?n.progress:0;setTitle();setArt();$("ar").textCont
 /* list($("rc"),x.recent.map(r=>[r.title,r.artist]));list($("ta"),x.topArtists.map(a=>[a])); */
 $("cap").textContent="live from the Spotify API · refreshes every 15s";draw()}
 async function poll(){try{const r=await fetch("/api/spotify");if(!r.ok)throw 0;render(await r.json())}catch(e){if(!n){$("tt").textContent="Spotify is taking a break";$("st").textContent="OFFLINE";$("np").classList.remove("play");$("cap").textContent="couldn't reach the Spotify API"}}}
-setInterval(()=>{if(n&&n.live&&n.isPlaying&&n.duration){p=Math.min(p+1,n.duration);draw()}},1000);
-poll();setInterval(poll,15000);
+let tk=null,pl=null;
+function start(){if(tk)return;
+tk=setInterval(()=>{if(n&&n.live&&n.isPlaying&&n.duration){p=Math.min(p+1,n.duration);draw()}},1000);
+poll();pl=setInterval(poll,15000)}
+function stop(){clearInterval(tk);clearInterval(pl);tk=pl=null}
+document.addEventListener("visibilitychange",()=>document.visibilityState==="hidden"?stop():start());
+if(document.visibilityState!=="hidden")start();
 </script>
 </body>
 </html>
