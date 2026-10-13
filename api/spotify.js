@@ -16,16 +16,21 @@ async function getAccessToken() {
   return (await r.json()).access_token;
 }
 
-const track = (t) => ({ title: t.name, artist: t.artists.map((a) => a.name).join(", ") });
+const track = (t) => ({
+  title: t.name,
+  artist: t.artists.map((a) => a.name).join(", "),
+  image: (t.album.images[1] || t.album.images[0] || {}).url || null,
+  url: t.external_urls.spotify,
+});
 
 module.exports = async (req, res) => {
   try {
     const headers = { Authorization: "Bearer " + (await getAccessToken()) };
     const get = (path) => fetch(API + path, { headers });
-    const [np, rp, ta] = await Promise.all([
+    const [np, rp /*, ta */] = await Promise.all([
       get("/me/player/currently-playing"),
       get("/me/player/recently-played?limit=10"),
-      get("/me/top/artists?limit=5&time_range=short_term"),
+      // get("/me/top/artists?limit=5&time_range=short_term"), // top artists (disabled)
     ]);
 
     // recently played, de-duplicated
@@ -54,13 +59,13 @@ module.exports = async (req, res) => {
     if (!now && recent[0]) now = { ...recent[0], isPlaying: false, progress: 0, duration: 0, live: false };
 
     // top artists can be restricted for some apps, so fail soft
-    const topArtists = ta.ok ? (await ta.json()).items.map((a) => a.name) : [];
+    // const topArtists = ta.ok ? (await ta.json()).items.map((a) => a.name) : [];
 
     res.setHeader("Cache-Control", "s-maxage=10, stale-while-revalidate=30");
     res.status(200).json({
       now,
       recent: recent.filter((r) => !now || r.title !== now.title).slice(0, 5),
-      topArtists,
+      // topArtists,
     });
   } catch (e) {
     res.status(500).json({ error: "spotify_unavailable" });

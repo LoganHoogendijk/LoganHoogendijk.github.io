@@ -37,10 +37,10 @@ h2::before{content:"// ";color:var(--mut)}
 .cur{display:inline-block;width:8px;height:15px;background:var(--ac2);vertical-align:-2px;animation:b 1s steps(2) infinite}
 @keyframes b{50%{opacity:0}}
 .np{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.art{width:96px;height:96px;border-radius:50%;flex:none;position:relative;overflow:hidden;background:var(--ac)}
+.art{width:96px;height:96px;border-radius:50%;flex:none;position:relative;overflow:hidden;background:var(--ac) center/cover no-repeat}
 .art::after{content:"";position:absolute;inset:30%;border-radius:50%;background:var(--bg);box-shadow:0 0 0 6px color-mix(in srgb,var(--bg) 40%,transparent)}
 .np.play .art{animation:spin 8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-.meta{flex:1;min-width:200px}.meta .tt{font-size:1.3rem;font-weight:700}.meta .ar{color:var(--mut)}
+.meta{flex:1;min-width:200px}.meta .tt{font-size:1.3rem;font-weight:700}.meta .ar{color:var(--mut)}.tt a{color:inherit;text-decoration:none}.tt a:hover{color:var(--ac)}
 .bar{height:5px;background:var(--line);border-radius:9px;margin-top:14px;overflow:hidden}.bar div{height:100%;width:0;background:var(--ac2)}
 .tm{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-top:6px}
 .eq{display:flex;gap:3px;align-items:flex-end;height:22px}.eq i{width:4px;background:var(--ac2);border-radius:2px;height:30%;animation:e 1s ease-in-out infinite}
@@ -129,10 +129,12 @@ footer{margin-top:80px;color:var(--mut);font-size:13px}
   </div>
   <p class="mono" id="cap" style="font-size:11px;color:var(--mut);margin:14px 0 0">connecting to Spotify…</p>
 </div>
+<!-- Recently played + top artists (hidden for now). Uncomment this block AND the list(...) line in the script to bring it back.
 <div class="grid" style="margin-top:16px">
   <div class="card"><b>Recently played</b><ol class="top" style="margin-top:12px" id="rc"></ol></div>
   <div class="card"><b>Top artists this month</b><ol class="top" style="margin-top:12px" id="ta"></ol></div>
 </div>
+-->
 
 <footer class="mono"><a href="mailto:logan.hoogendijk@gmail.com">logan.hoogendijk@gmail.com</a> · <a href="https://github.com/LoganHoogendijk">github</a> · <a href="https://linkedin.com/in/logan-hoogendijk">linkedin</a> · Markham, ON</footer>
 </main>
@@ -143,8 +145,10 @@ function list(el,items){el.replaceChildren(...items.map(([a,b])=>{const li=docum
 function draw(){const on=!!(n&&n.live&&n.isPlaying);$("np").classList.toggle("play",on);
 $("st").textContent=!n?"NOTHING YET":n.live?(on?"LISTENING NOW":"PAUSED"):"LAST PLAYED";
 const d=(n&&n.duration)||0;$("cu").textContent=d?f(p):"";$("du").textContent=d?f(d):"";$("pg").style.width=d?Math.min(100,p/d*100)+"%":"0"}
-function render(x){n=x.now;p=n?n.progress:0;$("tt").textContent=n?n.title:"Nothing playing";$("ar").textContent=n?n.artist:"";
-list($("rc"),x.recent.map(r=>[r.title,r.artist]));list($("ta"),x.topArtists.map(a=>[a]));
+function setTitle(){const t=$("tt");if(n&&n.url){const a=document.createElement("a");a.href=n.url;a.target="_blank";a.rel="noopener";a.textContent=n.title;t.replaceChildren(a)}else t.textContent=n?n.title:"Nothing playing"}
+function setArt(){const ok=n&&n.image&&n.image.startsWith("https://");$("np").querySelector(".art").style.backgroundImage=ok?`url("${n.image}")`:""}
+function render(x){n=x.now;p=n?n.progress:0;setTitle();setArt();$("ar").textContent=n?n.artist:"";
+/* list($("rc"),x.recent.map(r=>[r.title,r.artist]));list($("ta"),x.topArtists.map(a=>[a])); */
 $("cap").textContent="live from the Spotify API · refreshes every 15s";draw()}
 async function poll(){try{const r=await fetch("/api/spotify");if(!r.ok)throw 0;render(await r.json())}catch(e){if(!n){$("tt").textContent="Spotify is taking a break";$("st").textContent="OFFLINE";$("np").classList.remove("play");$("cap").textContent="couldn't reach the Spotify API"}}}
 setInterval(()=>{if(n&&n.live&&n.isPlaying&&n.duration){p=Math.min(p+1,n.duration);draw()}},1000);
