@@ -15,9 +15,10 @@ html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.55}
 .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
 main{max-width:1100px;margin:0 auto;padding:0 20px 80px}
-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px}
-nav a{color:var(--mut);text-decoration:none;margin-left:18px}nav a:hover{color:var(--ac2)}
-nav a.cta{color:var(--ac);border:1px solid var(--ac);border-radius:8px;padding:4px 12px}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px 16px;padding:20px 0;font-size:14px}
+nav>div{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
+nav a{color:var(--mut);text-decoration:none}nav a:hover{color:var(--ac2)}
+nav a.cta{color:var(--ac);border:1px solid var(--ac);border-radius:8px;padding:6px 14px}
 nav a.cta:hover{background:var(--ac);color:var(--bg)}
 button.t{background:none;border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:18px}
 h1{font-size:clamp(2.3rem,7vw,4.2rem);line-height:1.05;margin:48px 0 14px;letter-spacing:-.03em}
